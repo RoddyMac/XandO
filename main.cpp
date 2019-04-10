@@ -14,7 +14,7 @@ void setup() {																	//Displays the welcome message
 }
 void displayTable(vector<char> line1, vector<char> line2, vector<char> line3) {		//Displays the board as it is when the function is called
 
-	for (int i = 0; i < line1.size();i++) {								//Iterates through each item of the vector and displays the value at each index
+	for (int i = 0; i < line1.size();i++) {										//Iterates through each item of the vector and displays the value at each index
 		cout << line1[i] << " ";		
 	}
 
@@ -50,16 +50,15 @@ char playerMove(char currentMove_x, char currentMove_y) {
 	cout << "Please enter the row value that you want to mark on the board: ";
 	cin >> currentMove_y;
 	
-	//Adding validation that the inputs are within range COME BACK TO THIS SECTION
-	
-	if (currentMove_x != 'a' && currentMove_x != 'b' && currentMove_x != 'c') {
+	//Adding validation that the inputs are within range
+	if (currentMove_x != 'a' || currentMove_x != 'b' || currentMove_x != 'c') {
 		cout << "That is not a valid answer, please enter a valid column: ";
 		cin >> currentMove_x;
 	}
-	if (currentMove_y != 'a' && currentMove_y != 'b' && currentMove_y != 'c') {
+	if (currentMove_y != 'a' || currentMove_y != 'b' || currentMove_y != 'c') {
 		cout << "That is not a valid answer, please enter a valid row: ";
 		cin >> currentMove_y;
-	}	 
+	}
 
 	//Once movement is written write move validation here
 
