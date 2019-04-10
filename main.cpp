@@ -43,7 +43,7 @@ vector<char> resetLine(vector<char> line) {
 	return line;
 }
 
-char playerMove(char currentMove_x, char currentMove_y) {
+char getPlayerMove(char currentMove_x, char currentMove_y) {
 
 	cout << "Please enter the column value that you want to mark on the board: ";
 	cin >> currentMove_x;	
@@ -65,13 +65,57 @@ char playerMove(char currentMove_x, char currentMove_y) {
 	return currentMove_y;
 }
 
+vector<char> playerMove(vector<char> line1, vector<char> line2, vector<char> line3, char currentMove_x, char currentMove_y, char playerSymbol) {
+
+	//Write movement function here	
+		if (currentMove_y == 'a') {             //Selects the appropriate array and finds the appropriate index to mark  
+			if (currentMove_x == 'a') {         //Maybe find a better way to do this?
+                line1[0] = playerSymbol;
+			}
+            if (currentMove_x == 'b') {
+                line1[1] = playerSymbol;
+            }
+            if (currentMove_x == 'c') {
+                line1[2] = playerSymbol;
+            }
+		}
+		else if (currentMove_y == 'b') {
+			if (currentMove_x == 'a') {
+                line2[0] = playerSymbol;
+			}
+            if (currentMove_x == 'b') {
+                line2[1] = playerSymbol;
+            }
+            if (currentMove_x == 'c') {
+                line2[2] = playerSymbol;
+            }
+		}
+		else if (currentMove_y == 'c') {
+			if (currentMove_x == 'a') {
+                line3[0] = playerSymbol;
+			}
+            if (currentMove_x == 'b') {
+                line3[1] = playerSymbol;
+            }
+            if (currentMove_x == 'c') {
+                line3[2] = playerSymbol;
+            }
+		}
+	
+	return line1;
+	return line2;
+	return line3;
+}
+
 int main() {
 	
 	setup();
 	
 	char currentMove_x;
 	char currentMove_y;
-	vector<char> line1;
+    char player1;
+    char player2;
+    vector<char> line1;
 	vector<char> line2;
 	vector<char> line3;
 
@@ -80,8 +124,6 @@ int main() {
 	line3 = resetLine(line3);
 
 	displayTable(line1, line2, line3);
-	
-	playerMove(currentMove_x, currentMove_y);
 
 }
 
