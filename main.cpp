@@ -12,39 +12,24 @@ void setup() {																	//Displays the welcome message
 	cout << "\n";	
 
 }
-void displayTable(vector<int> line1, vector<int> line2, vector<int> line3) {		//Displays the board as it is when the function is called
+void displayTable(int gameTable[3][3]) {		//Displays the board as it is when the function is called
     
-    cout << "  1 2 3\n";
-    cout << "1 ";
-	for (int i = 0; i < line1.size();i++) {								//Iterates through each item of the vector and displays the value at each index
-		cout << line1[i] << " ";		
-	}
-
-	cout << "\n";															//For display purposes
-    
-    cout << "2 ";
-	for (int i = 0; i < line2.size(); i++) {
-		cout << line2[i] << " ";
-	}
-
-	cout << "\n";
-
-    cout << "3 ";
-	for (int i = 0; i < line3.size();i++) {
-		cout << line3[i] << " ";	
-	}
-
-	cout << "\n";
-
+    for (int i = 0; i < 3; i++) {               //Interates through all the x values
+        for (int j = 0; j < 3; j++) {
+            cout << gameTable[i][j] << " ";
+        }
+        cout << "\n";
+    }
 }
 
-vector<int> resetLine(vector<int> line) {
+int resetTable(int gameTable[3][3]) {
 	
-	line.push_back(1);
-	line.push_back(1);
-	line.push_back(1);
-
-	return line;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            gameTable[i][j] = 1;
+        }
+    }   
+    return gameTable[3][3];
 }
 
 vector<int> getPlayerMove(vector<int> &currentMove) {
@@ -71,46 +56,44 @@ vector<int> getPlayerMove(vector<int> &currentMove) {
 	return currentMove;
 }
 
-vector<int> playerMove(vector<int> line1, vector<int> line2, vector<int> line3, const vector<int> currentMove, int playerSymbol) {
+int playerMove(int gameTable[3][3], const vector<int> currentMove, int playerSymbol) {
 
 	//Write movement function here	
-		if (currentMove[1] == 1) {             //Selects the appropriate array and finds the appropriate index to mark  
-			if (currentMove[0] == 1) {         //Maybe find a better way to do this?
-                line1[0] = playerSymbol;
-			}
-            if (currentMove[0] == 2) {
-                line1[1] = playerSymbol;
-            }
-            if (currentMove[0] == 3) {
-                line1[2] = playerSymbol;
-            }
-		}
-		else if (currentMove[1] == 2) {
-			if (currentMove[0] == 1) {
-                line2[0] = playerSymbol;
-			}
-            if (currentMove[0] == 2) {
-                line2[1] = playerSymbol;
-            }
-            if (currentMove[0] == 3) {
-                line2[2] = playerSymbol;
-            }
-		}
-		else if (currentMove[1] == 3) {
-			if (currentMove[0] == 1) {
-                line3[0] = playerSymbol;
-			}
-            if (currentMove[0] == 2) {
-                line3[1] = playerSymbol;
-            }
-            if (currentMove[0] == 3) {
-                line3[2] = playerSymbol;
-            }
-		}
-	
-	return line1;
-	return line2;
-	return line3;
+    if (currentMove[0] == 1) {
+        if (currentMove[1] == 1) {
+            gameTable[0][0] = playerSymbol;
+        }
+        else if (currentMove[1] == 2) {
+            gameTable[0][1] = playerSymbol;
+        }
+        else if (currentMove[1] == 3) {
+            gameTable[0][2] = playerSymbol;
+        }
+    }
+    else if (currentMove[0] == 2) {
+        if (currentMove[1] == 1) {
+            gameTable[1][0] = playerSymbol;
+        }
+        else if (currentMove[1] == 2) {
+            gameTable[1][1] = playerSymbol;
+        }
+        else if (currentMove[1] == 3) {
+            gameTable[1][2] = playerSymbol;
+        }
+    }
+    else if (currentMove[0] == 3) {
+        if (currentMove[1] == 1) {
+            gameTable[2][0] = playerSymbol;
+        }
+        else if (currentMove[1] == 2) {
+            gameTable[2][1] = playerSymbol;
+        }
+        else if (currentMove[1] == 3) {
+            gameTable[2][2] = playerSymbol;
+        }
+    }
+
+    return gameTable[3][3];
 }
 
 int main() {
@@ -120,26 +103,30 @@ int main() {
 	vector<int> currentMove;
     int player1 = 2;
     int player2 = 0;
-    int winCondition;
-    vector<int> line1;
-	vector<int> line2;
-	vector<int> line3;
+    int winCondition = 0;
 
-	line1 = resetLine(line1);
-	line2 = resetLine(line2);
-	line3 = resetLine(line3);
+    int gameTable [3][3] = {
+     {1, 1, 1},
+     {1, 1, 1},
+     {1, 1, 1}
+    };
 
-	displayTable(line1, line2, line3);
-    getPlayerMove(currentMove);
-    cout << "Main loop\n";
-    
-    for (int i = 0; i < currentMove.size(); i++) {
-        cout << currentMove[i] << "\n";
-    }
 
-    playerMove(line1, line2, line3, currentMove, player1);
-    displayTable(line1, line2, line3);
+    resetTable(gameTable);
+	displayTable(gameTable);
+
     //Main game loop
+
+    do {
+
+        //Player1
+        getPlayerMove(currentMove);
+        //Move Validation
+        playerMove(gameTable, currentMove, player1);
+        displayTable(gameTable);
+        //Implement Win detection algorithm here
+
+    } while (winCondition == 0);
 /*
     do {
 
